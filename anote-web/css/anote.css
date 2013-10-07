@@ -1,0 +1,81 @@
+
+.red {
+  background-color: red;
+}
+.blue {
+  background-color: blue;
+}
+
+.add-field {
+  padding-right: 20px;
+}
+.add-field input {
+  margin: 3px 10px 3px 3px;
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid;
+  outline: none;
+}
+
+.add-field-wrap {
+  padding: 2px 0;
+  width: 100%;
+}
+
+.add-extra {
+  margin-bottom: 0px;
+}
+
+.col_check {
+  width: 15px;
+}
+.col_arr {
+  width: 15px;
+}
+.col_prio {
+  width: 10px;
+  border-right: 1px solid #CACACA;
+}
+.col_date {
+  width: 12ex;
+}
+.col_ico {
+  width: 20px;
+}
+
+.task_table td {
+  border-bottom: 1px solid #CACACA;
+}
+
+.round_table {
+  border: 1px;
+  border-radius: 5px;
+}
+
+.task_table {
+  color: #575757;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  cursor: pointer;
+  empty-cells: show;
+}
+.task_tag {
+  color: #0060BF;
+  padding-right: 5px;
+  font-size: .95em;
+  font-family: arial,sans-serif;
+}
+
+form {
+  margin: 0px;
+}
+
+#tasks {
+  margin-top: 2px;
+  min-height: 50px;
+  border: 1px solid #CACACA;
+  border-radius: 5px;
+}
