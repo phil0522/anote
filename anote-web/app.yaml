@@ -16,3 +16,12 @@ handlers:
 
 - url: /.*
   script: anoteweb.helloworld.application
+
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- ^proto/.*$
+- ^doc/.*$

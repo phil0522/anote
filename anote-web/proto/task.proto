@@ -1,20 +1,56 @@
+package anote;
 
+message Task {
+  optional int32 id = 1;
 
-proto Task {
-  optional string title = 1;
-  optional string note = 2;
-  optional int64 complete_at = 3;
-  optional int64 created_at = 4;
-  optional int64 due_date = 5;
-  optional int32 id = 6;
-  optional int32 project_id = 7;
-  optional int32 parent_id = 8;
-  optional int32 position = 9; // 10.00009, we can use 
-  optional recurrence_count = 10;
-  optional recurrence_type = 11;
-  optional recurrence_parent_id = 12;
-  optional deleted_at = 13;
-  optional string type = 14; // "task"
-  optional updated_at = 15;
-  optional 
+  optional string titie = 2;
+  optional string note = 3;
+
+  optional int32 user_id = 17;
+  optional int32 project_id = 4;
+  optional int32 parent_id = 5;
+
+  // The number used to denote position among its siblings. Starting from
+  // 10000 * creation_seq. If a task is moved, it should first try to change
+  // this number to some proper value suitable for its new position.
+  optional int32 position = 6;
+
+  optional int64 created_at = 7;
+  optional int64 updated_at = 8;
+  optional int64 deleted_at = 9;
+
+  optional int32 recurrence_count = 10;
+  optional int32 recurrence_type = 11;
+  optional int32 recurrence_parent_id = 12;
+
+  enum TaskType {
+    SIMPLE_TASK = 0;
+    RECURRENCE_TASK = 1;
+  }
+
+  optional TaskType task_type = 13;
+
+  optional int64 due_time = 14;
+
+  enum DueType {
+    VALID_BEFORE_DUE_TIME = 0;
+    VALID_ONLY_ON_THE_DAY = 1;
+  }
+
+  optional DueType due_type = 15 [default=VALID_BEFORE_DUE_TIME];
+
+  repeated string context = 16;
+
+  enum TaskStatus {
+    CREATED = 0;
+    WAITING = 1;
+    ACTIONABLE = 2;
+    DELEGATED = 3;
+    DEFERRED = 4;
+    INCUBATE = 5;
+    DONE = 6;
+  }
+
+  repeated TaskStatus state = 18;
 }
+

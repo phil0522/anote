@@ -1,2 +1,4 @@
 helloscala
-.*
+anote-web/.pydevproject
+anote-web/proto/*.py
+anote-web/proto/*.pyc
