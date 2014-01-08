@@ -1,4 +1,6 @@
 helloscala
 anote-web/.pydevproject
-anote-web/proto/*.py
-anote-web/proto/*.pyc
+.DS_Store
+.metadata
+/*
+anote-web/genfiles
