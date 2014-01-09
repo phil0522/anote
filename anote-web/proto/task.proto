@@ -3,7 +3,7 @@ package anote;
 message Task {
   optional int32 id = 1;
 
-  optional string titie = 2;
+  optional string title = 2;
   optional string note = 3;
 
   optional int32 user_id = 17;
@@ -51,6 +51,6 @@ message Task {
     DONE = 6;
   }
 
-  repeated TaskStatus state = 18;
+  optional TaskStatus state = 18;
 }
 
