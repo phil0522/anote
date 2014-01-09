@@ -2,5 +2,5 @@ helloscala
 anote-web/.pydevproject
 .DS_Store
 .metadata
-/*
 anote-web/genfiles
+*.pyc
