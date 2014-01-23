@@ -1,43 +1,53 @@
 from google.appengine.ext import ndb
-    
-def _progress_validator(x):
-    if x < 0 or x > 100:
-        raise "progress should range in [0,100]"
-    return None
+
+from enum import Enum
 
 class Project(ndb.Model):
-    """Projects associated with a task"""
-    parent = ndb.KeyProperty()
-    name = ndb.StringProperty(required=True)
-    description = ndb.StringProperty(indexed=False)
-    created = ndb.DateTimeProperty(auto_now_add=True)
-    modified = ndb.DateTimeProperty(auto_now=True)
-    progress = ndb.IntegerProperty(default=0, validator=_progress_validator)
+  """Projects associated with a task"""
+  
+  # The ancestors, from topmost root to direct parent node.
+  ancestors = ndb.KeyProperty(repeated=True)
+  name = ndb.StringProperty(required=True)
+  description = ndb.StringProperty(indexed=False)
+  created_at = ndb.DateTimeProperty(auto_now_add=True)
+  depth = ndb.ComputedProperty(lambda self: len(self.ancestors))
 
 class Context(ndb.Model):
-    parent = ndb.KeyProperty()
-    name = ndb.StringProperty(required=True)
-    full_name = ndb.StringProperty(required=True)
-    description = ndb.StringProperty(indexed=False)
+  # The ancestors, from topmost root to direct parent node.
+  ancestors = ndb.KeyProperty(repeated=True)
+  name = ndb.StringProperty(required=True)
+  full_name = ndb.StringProperty(required=True)
+  description = ndb.StringProperty(indexed=False)
+  depth = ndb.ComputedProperty(lambda self: len(self.ancestors))
 
 
-
+class TaskNode(ndb.Model):
+  created_at = ndb.DateTimeProperty(auto_now_add=True)
+  updated_at = ndb.DateTimeProperty(auto_now=True)
+  text = ndb.TextProperty(index=False)
+  
 class Task(ndb.Model):
-    parent_task = ndb.KeyProperty()
-    sub_tasks = ndb.StringListProperty(repeated=True)
+  Status = Enum('created', 'actionable', 'done', 'canceled')
+  
+  ancestors = ndb.KeyProperty(repeated=True) 
+  status = ndb.StringProperty(choices = [s for s in Status])
+  contexts = ndb.StringProperty(repeated=True)
+  depth = ndb.ComputedProperty(lambda self: len(self.ancestors))
+  
+  title = ndb.StringProperty(index=False)
+  description = ndb.StringProperty(index=False)
+  user = ndb.StringProperty()
+  user_time_zone = ndb.StringProperty()
+  
+  # The number used to denote position among its siblings. Starting from
+  # 10000 * creation_seq. If a task is moved, it should first try to change
+  # this number to some proper value suitable for its new position.
+  position = ndb.IntegerProperty()
+  
+  created_at = ndb.DateTimeProperty(auto_now_add=True)
 
-    STATUS_PENDING = 'pending'
-    STATUS_DONE = 'done'
-    STATUS_ABORTED = 'aborted'
-    ALL_TASK_STATUS = (STATUS_ABORTED, STATUS_DONE, STATUS_PENDING)
+  notify_after = ndb.DateTimeProperty()  
+  valid_after = ndb.DateTimeProperty();
+  due_to = ndb.DateTimeProperty();
+  
 
-    status = ndb.StringProperty(choices=ALL_TASK_STATUS)
-    contexts = ndb.StringProperty(repeated=True)
-
-
-
-
-
-
-    
-    

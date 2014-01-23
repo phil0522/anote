@@ -4,7 +4,9 @@ import util.pjson as pjson
 from proto.task_pb2 import Task
 from proto.anote_pb2 import Project
 
+
 class Proto2Json(unittest.TestCase):
+
   
   def test_proto_2_json_simple_fields(self):
     proto = Task()
