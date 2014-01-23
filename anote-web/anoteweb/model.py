@@ -17,33 +17,27 @@ class Project(ndb.Model):
 class Context(ndb.Model):
     parent = ndb.KeyProperty()
     name = ndb.StringProperty(required=True)
+    full_name = ndb.StringProperty(required=True)
     description = ndb.StringProperty(indexed=False)
-    
-class Thing(ndb.Model):
-    STATE_THING = 1
-    STATE_WAITING = 2
-    STATE_ACTIONABLE = 3
-    STATE_DELEGATE = 4
-    STATE_DEFERRED = 5
-    STATE_INCUBATE = 6
-    STATE_DONE = 7
-    
-    STATES = (
-        (STATE_THING, _('thing')),
-        (STATE_WAITING, _('waiting'))
-        (STATE_ACTIONABLE, _('actionable')),
-        (STATE_DELEGATE, _('delegated')),
-        (STATE_DEFERRED, _('deferred')),
-        (STATE_INCUBATE, _('incubate')),
-        (STATE_DONE, _('done')),
-    )
-    
-    parent = ndb.KeyProperty()
-    description = ndb.TextProperty(required=True)
-    status = ndb.IntegerProperty(choices=STATES)
-    
-    
-    
-    
+
+
+
+class Task(ndb.Model):
+    parent_task = ndb.KeyProperty()
+    sub_tasks = ndb.StringListProperty(repeated=True)
+
+    STATUS_PENDING = 'pending'
+    STATUS_DONE = 'done'
+    STATUS_ABORTED = 'aborted'
+    ALL_TASK_STATUS = (STATUS_ABORTED, STATUS_DONE, STATUS_PENDING)
+
+    status = ndb.StringProperty(choices=ALL_TASK_STATUS)
+    contexts = ndb.StringProperty(repeated=True)
+
+
+
+
+
+
     
     

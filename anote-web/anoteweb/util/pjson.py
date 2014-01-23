@@ -77,7 +77,7 @@ def _json_to_proto(proto, json):
     except:
       traceback.print_exc()
       raise ParseError(proto.__class__.__name__, field.name, json)
-    
+
   return proto
 
 def _proto_to_json(proto):

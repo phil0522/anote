@@ -4,3 +4,5 @@ anote-web/.pydevproject
 .metadata
 anote-web/genfiles
 *.pyc
+.idea
+funcpro
