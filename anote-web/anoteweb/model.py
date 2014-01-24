@@ -21,7 +21,7 @@ class Context(ndb.Model):
   depth = ndb.ComputedProperty(lambda self: len(self.ancestors))
 
 
-class TaskNode(ndb.Model):
+class TaskNote(ndb.Model):
   created_at = ndb.DateTimeProperty(auto_now_add=True)
   updated_at = ndb.DateTimeProperty(auto_now=True)
   text = ndb.TextProperty(indexed=False)
@@ -33,6 +33,8 @@ class Task(ndb.Model):
   status = ndb.StringProperty(choices = [str(s) for s in Status])
   contexts = ndb.StringProperty(repeated=True)
   depth = ndb.ComputedProperty(lambda self: len(self.ancestors))
+
+  notes = ndb.StructuredProperty(TaskNote, repeated=True, indexed=False)
   
   title = ndb.StringProperty(indexed=False)
   description = ndb.StringProperty(indexed=False)
