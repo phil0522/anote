@@ -24,18 +24,18 @@ class Context(ndb.Model):
 class TaskNode(ndb.Model):
   created_at = ndb.DateTimeProperty(auto_now_add=True)
   updated_at = ndb.DateTimeProperty(auto_now=True)
-  text = ndb.TextProperty(index=False)
+  text = ndb.TextProperty(indexed=False)
   
 class Task(ndb.Model):
   Status = Enum('created', 'actionable', 'done', 'canceled')
   
   ancestors = ndb.KeyProperty(repeated=True) 
-  status = ndb.StringProperty(choices = [s for s in Status])
+  status = ndb.StringProperty(choices = [str(s) for s in Status])
   contexts = ndb.StringProperty(repeated=True)
   depth = ndb.ComputedProperty(lambda self: len(self.ancestors))
   
-  title = ndb.StringProperty(index=False)
-  description = ndb.StringProperty(index=False)
+  title = ndb.StringProperty(indexed=False)
+  description = ndb.StringProperty(indexed=False)
   user = ndb.StringProperty()
   user_time_zone = ndb.StringProperty()
   
