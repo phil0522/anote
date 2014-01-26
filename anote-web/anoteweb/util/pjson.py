@@ -7,14 +7,15 @@ import logging
 from time_util import from_epoch,to_epoch
 from datetime import datetime
 
-def _json_to_proto(proto_class, json_obj):
-  proto = proto_class()
+
+def _json_to_proto(model_class, json_obj):
+  proto = model_class()
   _result = {}
   for k,v in json_obj.iteritems():
-    prop = proto_class._properties.get(k)
+    prop = model_class._properties.get(k)
     if prop is None:
       logging.fatal('can not decode %s, Property is not defined on %s.%s.', k,
-                    proto_class.__model__, proto_class.__name__)
+                    model_class.__model__, model_class.__name__)
     if isinstance(prop, ndb.ComputedProperty):
       continue
     if prop._repeated:
@@ -24,7 +25,7 @@ def _json_to_proto(proto_class, json_obj):
 
     _result [k] = value
 
-  return proto_class(**_result)
+  return model_class(**_result)
 
 
 def _get_value_for_json_to_proto(prop, v):
@@ -44,11 +45,6 @@ def _get_value_for_json_to_proto(prop, v):
 
   logging.fatal('unsupport property type: %s', prop)
 
-
-
-
-def json2proto(proto_class, json_str):
-  return _json_to_proto(proto_class, json.loads(json_str))
 
 def _remove_null_value_from_map(input):
   if isinstance(input, list):
@@ -70,6 +66,11 @@ def _remove_null_value_from_map(input):
     return result
   else:
     logging.fatal('unknown type: %s %s', type(v), repr(v))
+
+
+def json2proto(proto_class, json_str):
+  return _json_to_proto(proto_class, json.loads(json_str))
+
 
 def proto2json(proto):
   non_empty_map = _remove_null_value_from_map(proto.to_dict())

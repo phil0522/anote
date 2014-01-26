@@ -49,7 +49,7 @@ class Task(ndb.Model):
   created_at = ndb.DateTimeProperty(auto_now_add=True)
 
   notify_after = ndb.DateTimeProperty()  
-  valid_after = ndb.DateTimeProperty();
-  due_to = ndb.DateTimeProperty();
+  valid_after = ndb.DateTimeProperty()
+  due_to = ndb.DateTimeProperty()
   
 
