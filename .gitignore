@@ -6,3 +6,4 @@ anote-web/genfiles
 *.pyc
 .idea
 funcpro
+*.sublime-workspace
