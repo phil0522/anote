@@ -1,8 +1,9 @@
 """hello world app"""
-
 import webapp2
+
 import sys
 import os
+
 
 def fix_path():
   """fix the path."""
