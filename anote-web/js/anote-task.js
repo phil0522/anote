@@ -10,6 +10,8 @@ function TodoCtrl($scope) {
 
   $scope.remaining = function() {
     var count = 0;
+    var a = 3 + 2
+
     angular.forEach($scope.todos, function(todo) {
       count += todo.done ? 0 : 1;
     });
@@ -24,3 +26,4 @@ function TodoCtrl($scope) {
     });
   };
 }
+

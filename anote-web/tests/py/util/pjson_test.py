@@ -19,27 +19,27 @@ class Proto2Json(unittest.TestCase):
     json_string = pjson.proto2json(proto)
     self.assertIsNotNone(json_string, 'message is none')
     self.assertEquals(
-        '{"status": "actionable", "position": 300,"depth": 0, ' +
+        '{"status": "actionable", "position": 300, "depth": 0, ' +
         '"created_at": 1390576468, "title": "title"}', json_string)
 
     parsed_proto = pjson.json2proto(Task, json_string)
 
     self.assertEqual(proto, parsed_proto)
 
-
   def test_proto_2_json_repeated_fields(self):
     """Repeated field test."""
     proto = Task()
     proto.status = str(Task.Status.actionable)
+
     proto.title = 'title'
     proto.contexts.append("path.context1")
     proto.contexts.append("path.context2")
 
     json_string = pjson.proto2json(proto)
     self.assertIsNotNone(json_string)
-    self.assertEqual('{"status": "actionable",' +
-        '"contexts": ["path.context1", "path.context2"], ' +
-        '"depth": 0, "title": "title"}', json_string)
+    self.assertEqual('{"status": "actionable", ' +
+                     '"contexts": ["path.context1", "path.context2"], ' +
+                     '"depth": 0, "title": "title"}', json_string)
 
     parsed_proto = pjson.json2proto(Task, json_string)
 
@@ -54,7 +54,7 @@ class Proto2Json(unittest.TestCase):
     json_string = pjson.proto2json(proto)
 
     self.assertEqual('{"status": "actionable", "depth": 0, "title": "title"}',
-        json_string)
+                     json_string)
 
     parsed_proto = pjson.json2proto(Task, json_string)
     self.assertEqual(proto, parsed_proto)
@@ -70,8 +70,8 @@ class Proto2Json(unittest.TestCase):
     json_string = pjson.proto2json(proto)
     self.assertIsNotNone(json_string)
     self.assertEqual('{"status": "actionable", ' +
-        '"notes": [{"text": "text1"}, {"text": "text2"}],' +
-        '"depth": 0, "title": "title"}', json_string)
+                     '"notes": [{"text": "text1"}, {"text": "text2"}], ' +
+                     '"depth": 0, "title": "title"}', json_string)
 
     parsed_proto = pjson.json2proto(Task, json_string)
     self.assertEqual(proto, parsed_proto)

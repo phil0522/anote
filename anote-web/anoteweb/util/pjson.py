@@ -1,7 +1,7 @@
 """
 Converts a protocol buffer to and from json string.
 """
-from google.appengine.ext.ndb.model import ComputedProperty
+import google.appengine.ext.ndb as ndb
 import json
 import logging
 from anoteweb.util.time_util import from_epoch, to_epoch
@@ -15,7 +15,7 @@ def _json_to_proto(model_class, json_obj):
     if prop is None:
       logging.fatal('can not decode %s, Property is not defined on %s.%s.', k,
                     model_class.__model__, model_class.__name__)
-    if isinstance(prop, ComputedProperty):
+    if isinstance(prop, ndb.model.ComputedProperty):
       continue
     if prop._repeated:  #pylint: disable=W0212
       value = [_get_value_for_json_to_proto(prop, val) for val in v]
@@ -28,7 +28,9 @@ def _json_to_proto(model_class, json_obj):
 
 
 def _get_value_for_json_to_proto(prop, v):
-  logging.info('_get_value_for_json_to_proto: %s, vaue: %s', repr(prop), repr(v))
+  """json to proto."""
+  logging.info('_get_value_for_json_to_proto: %s, vaue: %s',
+      repr(prop), repr(v))
   if isinstance(prop, (ndb.DateTimeProperty, ndb.DateProperty,
                 ndb.TimeProperty)):
     return from_epoch(v)
@@ -47,7 +49,7 @@ def _get_value_for_json_to_proto(prop, v):
 
 def _remove_null_value_from_map(input):
   if isinstance(input, list):
-    return [ _remove_null_value_from_map(i) for i in input]
+    return [_remove_null_value_from_map(i) for i in input]
   elif isinstance(input, datetime):
     return to_epoch(input)
   elif isinstance(input, str) or isinstance(input, int):
