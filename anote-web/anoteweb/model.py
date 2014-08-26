@@ -17,6 +17,7 @@ class Project(ndb.Model):
 
 
 class Context(ndb.Model):
+  """Where and when the task is hold, as well as other attributes."""
   # The ancestors, from topmost root to direct parent node.
   ancestors = ndb.KeyProperty(repeated=True)
   name = ndb.StringProperty(required=True)
@@ -26,12 +27,14 @@ class Context(ndb.Model):
 
 
 class TaskNote(ndb.Model):
+  """Notes for a task."""
   created_at = ndb.DateTimeProperty(auto_now_add=True)
   updated_at = ndb.DateTimeProperty(auto_now=True)
   text = ndb.TextProperty(indexed=False)
 
 
 class Task(ndb.Model):
+  """A single task."""
   Status = Enum('created', 'actionable', 'done', 'canceled')
 
   ancestors = ndb.KeyProperty(repeated=True)

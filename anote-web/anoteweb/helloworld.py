@@ -3,7 +3,7 @@ import webapp2
 
 import sys
 import os
-
+import model
 
 def fix_path():
   """fix the path."""
@@ -21,4 +21,6 @@ class MainPage(webapp2.RequestHandler):
 
 fix_path()
 application = webapp2.WSGIApplication([('/', MainPage),], debug=True)
+a = model.Context()
+
 

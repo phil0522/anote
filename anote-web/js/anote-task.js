@@ -25,5 +25,6 @@ function TodoCtrl($scope) {
       if (!todo.done) $scope.todos.push(todo);
     });
   };
+
 }
 
