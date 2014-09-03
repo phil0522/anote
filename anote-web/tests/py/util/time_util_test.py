@@ -11,3 +11,7 @@ class Proto2Json(unittest.TestCase):
     a = from_epoch(1390576468)
     b = to_epoch(a)
     self.assertEqual(b, 1390576468)
+
+
+if __name__ == '__main__':
+  unittest.main()

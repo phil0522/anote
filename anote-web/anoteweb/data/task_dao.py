@@ -15,5 +15,3 @@ class TaskDao:
   def remove_task_notes(self, task, note):
     task.notes.remove(note)
     self.save_task(task)
-
-

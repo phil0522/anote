@@ -11,7 +11,7 @@ class Proto2Json(unittest.TestCase):
   def test_proto_2_json_simple_fields(self):
     """simple json test."""
     proto = Task()
-    proto.status = str(Task.Status.actionable)
+    proto.status = 'actionable'
     proto.title = 'title'
     proto.position = 300
     proto.created_at = datetime.utcfromtimestamp(1390576468)
@@ -29,7 +29,7 @@ class Proto2Json(unittest.TestCase):
   def test_proto_2_json_repeated_fields(self):
     """Repeated field test."""
     proto = Task()
-    proto.status = str(Task.Status.actionable)
+    proto.status = 'actionable'
 
     proto.title = 'title'
     proto.contexts.append("path.context1")
@@ -48,7 +48,7 @@ class Proto2Json(unittest.TestCase):
   def test_proto_2_json_enum_fields(self):
     """enum filed tests."""
     proto = Task()
-    proto.status = str(Task.Status.actionable)
+    proto.status = 'actionable'
     proto.title = 'title'
 
     json_string = pjson.proto2json(proto)
@@ -62,7 +62,7 @@ class Proto2Json(unittest.TestCase):
   def test_proto_2_json_repeated_structure(self):
     """repeated message test."""
     proto = Task()
-    proto.status = str(Task.Status.actionable)
+    proto.status = 'actionable'
     proto.title = 'title'
     proto.notes.append(TaskNote(text="text1"))
     proto.notes.append(TaskNote(text="text2"))
@@ -78,3 +78,6 @@ class Proto2Json(unittest.TestCase):
 
 #logger = logging.getLogger("")
 #logger.setLevel(logging.DEBUG)
+
+if __name__ == '__main__':
+  unittest.main()

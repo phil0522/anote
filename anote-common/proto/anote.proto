@@ -1,0 +1,42 @@
+package anote.proto;
+
+message Task {
+  optional int32 task_id = 1;
+  optional string title = 2;
+  optional string status = 3;
+  repeated string tag = 4;
+
+  optional string project = 5;
+
+  // Hierarchical tasks.
+  optional int32 parent_id = 6;
+  repeated int32 ancestor = 7;
+
+  optional string description = 8;
+  repeated int32 note_id = 9;
+  repeated Note note = 10;
+
+  optional int32 create_time = 11;
+  optional int32 update_time = 12;
+
+  // A number to help sort the tasks, smaller ones go first.
+  optional int32 position = 13;
+
+}
+
+message Note {
+  optional int32 note_id = 1;
+  optional string text = 2;
+
+  // Keep last N saves of text.
+  repeated string history_text = 3;
+}
+
+message Tag {
+  optional string title = 1;
+
+  // How many times a tag appears.
+  optional int32 occurrence = 2;
+
+  optional bool hide = 3;
+}

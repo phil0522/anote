@@ -2,13 +2,8 @@
 import webapp2
 
 import sys
-import os
-import model
 
-def fix_path():
-  """fix the path."""
-  # credit:  Nick Johnson of Google
-  sys.path.append(os.path.join(os.path.dirname(__file__), 'genfiles'))
+from anoteweb.servlets.action import Demo
 
 class MainPage(webapp2.RequestHandler):
   """Handler for MainPage."""
@@ -18,9 +13,13 @@ class MainPage(webapp2.RequestHandler):
     self.response.headers['Content-Type'] = 'text/plain'
     self.response.write('Hello, World!')
     self.response.write(sys.path)
+    
+    print self.request.headers 
 
-fix_path()
-application = webapp2.WSGIApplication([('/', MainPage),], debug=True)
-a = model.Context()
+
+application = webapp2.WSGIApplication(
+                                      [('/', MainPage),
+                                       ('/a', Demo)], debug=True)
+
 
 
