@@ -1,4 +1,6 @@
-from google.appengine.ext import db
+"""Manipulator for task class."""
+
+from anoteweb.model import Task
 
 class TaskDao:
   def __init__(self):

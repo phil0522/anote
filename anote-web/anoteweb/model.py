@@ -1,8 +1,9 @@
 """Model description for anote system."""
 from google.appengine.ext import ndb
+from enum import Enum
 
 class Project(ndb.Model):
-  """Projects associated with a task."""
+  """Projects associated with a task. Project can be nested."""
 
   # The ancestors, from topmost root to direct parent node.
   ancestors = ndb.KeyProperty(repeated=True)
@@ -13,13 +14,14 @@ class Project(ndb.Model):
 
 
 class Context(ndb.Model):
-  """Where and when the task is hold, as well as other attributes."""
+  """The context a task can be done. Context can be nested."""
   # The ancestors, from topmost root to direct parent node.
   ancestors = ndb.KeyProperty(repeated=True)
   name = ndb.StringProperty(required=True)
   full_name = ndb.StringProperty(required=True)
   description = ndb.StringProperty(indexed=False)
   depth = ndb.ComputedProperty(lambda self: len(self.ancestors))
+  count_of_tasks = ndb.IntegerProperty()
 
 
 class TaskNote(ndb.Model):
@@ -30,8 +32,8 @@ class TaskNote(ndb.Model):
 
 
 class Task(ndb.Model):
-  """A single task."""
-  Statuses = ['created', 'actionable', 'done', 'canceled']
+  """A basic task."""
+  Status = Enum('created', 'actionable', 'done', 'canceled')
 
   ancestors = ndb.KeyProperty(repeated=True)
   status = ndb.StringProperty(choices=Statuses)

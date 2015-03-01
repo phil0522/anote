@@ -2,6 +2,7 @@ import webapp2
 
 from anoteweb.data import anote_pb2
 
+
 class GetTasksServlet(webapp2.RequestHandler):
   """Send out taks in json format."""
   def get(self):

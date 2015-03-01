@@ -25,11 +25,9 @@ message Task {
 }
 
 message Note {
-  optional int32 note_id = 1;
-  optional string text = 2;
-
-  // Keep last N saves of text.
-  repeated string history_text = 3;
+  optional int32 task_id = 1
+  optional int32 note_id = 2;
+  optional string text = 3;
 }
 
 message Tag {
