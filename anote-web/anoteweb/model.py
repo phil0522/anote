@@ -3,57 +3,41 @@ from google.appengine.ext import ndb
 from enum import Enum
 
 class Project(ndb.Model):
-  """Projects associated with a task. Project can be nested."""
-
-  # The ancestors, from topmost root to direct parent node.
-  ancestors = ndb.KeyProperty(repeated=True)
+  """Projects associated with a task. Project can not be nested."""
   name = ndb.StringProperty(required=True)
-  description = ndb.StringProperty(indexed=False)
   created_at = ndb.DateTimeProperty(auto_now_add=True)
-  depth = ndb.ComputedProperty(lambda self: len(self.ancestors))
-
-
-class Context(ndb.Model):
-  """The context a task can be done. Context can be nested."""
-  # The ancestors, from topmost root to direct parent node.
-  ancestors = ndb.KeyProperty(repeated=True)
-  name = ndb.StringProperty(required=True)
-  full_name = ndb.StringProperty(required=True)
-  description = ndb.StringProperty(indexed=False)
-  depth = ndb.ComputedProperty(lambda self: len(self.ancestors))
-  count_of_tasks = ndb.IntegerProperty()
 
 
 class TaskNote(ndb.Model):
   """Notes for a task."""
+  task_id = ndb.IntegerProperty()
   created_at = ndb.DateTimeProperty(auto_now_add=True)
   updated_at = ndb.DateTimeProperty(auto_now=True)
   text = ndb.TextProperty(indexed=False)
 
 
+TaskStatus = Enum('created', 'actionable', 'done', 'canceled')
+
 class Task(ndb.Model):
   """A basic task."""
-  Status = Enum('created', 'actionable', 'done', 'canceled')
 
-  ancestors = ndb.KeyProperty(repeated=True)
-  status = ndb.StringProperty(choices=Statuses)
-  contexts = ndb.StringProperty(repeated=True)
-  depth = ndb.ComputedProperty(lambda self: len(self.ancestors))
-
-  notes = ndb.StructuredProperty(TaskNote, repeated=True, indexed=False)
-
+  task_id = ndb.IntegerProperty()
   title = ndb.StringProperty(indexed=False)
   description = ndb.StringProperty(indexed=False)
-  user = ndb.StringProperty()
-  user_time_zone = ndb.StringProperty()
 
-  # The number used to denote position among its siblings. Starting from
-  # 10000 * creation_seq. If a task is moved, it should first try to change
-  # this number to some proper value suitable for its new position.
-  position = ndb.IntegerProperty()
+  status = ndb.StringProperty(choices=[str(s) for s in TaskStatus])
+  priority = ndb.IntegerProperty(indexed=False,
+    validator=lambda prop, value: value if 1 <= value < 6 else None)
 
   created_at = ndb.DateTimeProperty(auto_now_add=True)
-
   notify_after = ndb.DateTimeProperty()
   valid_after = ndb.DateTimeProperty()
   due_to = ndb.DateTimeProperty()
+
+  notes = ndb.LocalStructuredProperty(TaskNote, repeated=True, indexed=False)
+
+
+class Tag(ndb.Model):
+  "Store all tags used in the tasks."
+  tag_name = ndb.StringProperty()
+  is_active = ndb.BooleanProperty()

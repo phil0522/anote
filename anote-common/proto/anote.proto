@@ -1,19 +1,22 @@
 package anote.proto;
 
+// Every task must be associated with a project.
+message Project {
+  optional int32 project_id = 1;
+  optional string name = 2;
+}
+
 message Task {
   optional int32 task_id = 1;
   optional string title = 2;
   optional string status = 3;
   repeated string tag = 4;
 
-  optional string project = 5;
+  optional int32 project = 5;
 
-  // Hierarchical tasks.
-  optional int32 parent_id = 6;
-  repeated int32 ancestor = 7;
+  optional string content = 6;
 
-  optional string description = 8;
-  repeated int32 note_id = 9;
+  // All notes are ordered by adding time.
   repeated Note note = 10;
 
   optional int32 create_time = 11;
@@ -24,16 +27,19 @@ message Task {
 
 }
 
+// A note can't be edit after created, but you can removed it and create a new
+// one.
 message Note {
-  optional int32 task_id = 1
+  optional int32 task_id = 1;
   optional int32 note_id = 2;
   optional string text = 3;
+  optional int32 create_time;
 }
 
 message Tag {
   optional string title = 1;
 
-  // How many times a tag appears.
+  // How many times a tag appears, this is used to determined the order of tags.
   optional int32 occurrence = 2;
 
   optional bool hide = 3;

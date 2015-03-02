@@ -1,19 +1,23 @@
 """Manipulator for task class."""
+import logging
 
 from anoteweb.model import Task
 
-class TaskDao:
-  def __init__(self):
-    pass
+def save_task(task):
+  """Create or update a task."""
+  key = task.put()
+  logging.info("Saving task: %s", task)
+  return key
 
-  def save_task(self, task):
-    key = task.put()
-    return key
+def get_task(task_id):
+  """Gets a task by its id. None is return when not found."""
+  return Task.query(task_id=task_id).get()
 
-  def create_task_notes(self, task, note):
-    task.notes.append(note)
-    return self.save_task(task)
+def get_all_actionable_tasks():
+  """Gets all task whose status is actionable."""
+  return Task.query().filter(Task.status=='actionable').fetch(100)
 
-  def remove_task_notes(self, task, note):
-    task.notes.remove(note)
-    self.save_task(task)
+
+
+
+

@@ -13,7 +13,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='anote.proto',
   package='anote.proto',
-  serialized_pb='\n\x0b\x61note.proto\x12\x0b\x61note.proto\"\xfc\x01\n\x04Task\x12\x0f\n\x07task_id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x0b\n\x03tag\x18\x04 \x03(\t\x12\x0f\n\x07project\x18\x05 \x01(\t\x12\x11\n\tparent_id\x18\x06 \x01(\x05\x12\x10\n\x08\x61ncestor\x18\x07 \x03(\x05\x12\x13\n\x0b\x64\x65scription\x18\x08 \x01(\t\x12\x0f\n\x07note_id\x18\t \x03(\x05\x12\x1f\n\x04note\x18\n \x03(\x0b\x32\x11.anote.proto.Note\x12\x13\n\x0b\x63reate_time\x18\x0b \x01(\x05\x12\x13\n\x0bupdate_time\x18\x0c \x01(\x05\x12\x10\n\x08position\x18\r \x01(\x05\";\n\x04Note\x12\x0f\n\x07note_id\x18\x01 \x01(\x05\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x14\n\x0chistory_text\x18\x03 \x03(\t\"6\n\x03Tag\x12\r\n\x05title\x18\x01 \x01(\t\x12\x12\n\noccurrence\x18\x02 \x01(\x05\x12\x0c\n\x04hide\x18\x03 \x01(\x08')
+  serialized_pb='\n\x0b\x61note.proto\x12\x0b\x61note.proto\"\xfc\x01\n\x04Task\x12\x0f\n\x07task_id\x18\x01 \x01(\x05\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x0b\n\x03tag\x18\x04 \x03(\t\x12\x0f\n\x07project\x18\x05 \x01(\t\x12\x11\n\tparent_id\x18\x06 \x01(\x05\x12\x10\n\x08\x61ncestor\x18\x07 \x03(\x05\x12\x13\n\x0b\x64\x65scription\x18\x08 \x01(\t\x12\x0f\n\x07note_id\x18\t \x03(\x05\x12\x1f\n\x04note\x18\n \x03(\x0b\x32\x11.anote.proto.Note\x12\x13\n\x0b\x63reate_time\x18\x0b \x01(\x05\x12\x13\n\x0bupdate_time\x18\x0c \x01(\x05\x12\x10\n\x08position\x18\r \x01(\x05\"6\n\x04Note\x12\x0f\n\x07task_id\x18\x01 \x01(\x05\x12\x0f\n\x07note_id\x18\x02 \x01(\x05\x12\x0c\n\x04text\x18\x03 \x01(\t\"6\n\x03Tag\x12\r\n\x05title\x18\x01 \x01(\t\x12\x12\n\noccurrence\x18\x02 \x01(\x05\x12\x0c\n\x04hide\x18\x03 \x01(\x08')
 
 
 
@@ -138,23 +138,23 @@ _NOTE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='note_id', full_name='anote.proto.Note.note_id', index=0,
+      name='task_id', full_name='anote.proto.Note.task_id', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='text', full_name='anote.proto.Note.text', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      name='note_id', full_name='anote.proto.Note.note_id', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='history_text', full_name='anote.proto.Note.history_text', index=2,
-      number=3, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
+      name='text', full_name='anote.proto.Note.text', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=unicode("", "utf-8"),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -168,7 +168,7 @@ _NOTE = _descriptor.Descriptor(
   is_extendable=False,
   extension_ranges=[],
   serialized_start=283,
-  serialized_end=342,
+  serialized_end=337,
 )
 
 
@@ -209,8 +209,8 @@ _TAG = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=344,
-  serialized_end=398,
+  serialized_start=339,
+  serialized_end=393,
 )
 
 _TASK.fields_by_name['note'].message_type = _NOTE
