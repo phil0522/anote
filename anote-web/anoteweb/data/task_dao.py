@@ -15,7 +15,7 @@ def get_task(task_id):
 
 def get_all_actionable_tasks():
   """Gets all task whose status is actionable."""
-  return Task.query().filter(Task.status=='actionable').fetch(100)
+  return Task.query().filter(Task.status == 'actionable').fetch(1000)
 
 
 
