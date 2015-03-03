@@ -11,10 +11,10 @@ class MainPage(webapp2.RequestHandler):
   def get(self):
     "default get method"
     self.response.headers['Content-Type'] = 'text/plain'
-    self.response.write('Hello, World!')
+    self.response.write('Hello, World!'     )
     self.response.write(sys.path)
-    
-    print self.request.headers 
+
+    print self.request.headers
 
 
 application = webapp2.WSGIApplication(

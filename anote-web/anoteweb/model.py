@@ -3,14 +3,15 @@ from google.appengine.ext import ndb
 from enum import Enum
 
 class Project(ndb.Model):
+
   """Projects associated with a task. Project can not be nested."""
   name = ndb.StringProperty(required=True)
-  created_at = ndb.DateTimeProperty(auto_now_add=True)
+  description = ndb.StringProperty()
 
 
 class TaskNote(ndb.Model):
   """Notes for a task."""
-  task_id = ndb.IntegerProperty()
+  task_key = ndb.StringProperty()
   created_at = ndb.DateTimeProperty(auto_now_add=True)
   updated_at = ndb.DateTimeProperty(auto_now=True)
   text = ndb.TextProperty(indexed=False)
@@ -20,14 +21,13 @@ TaskStatus = Enum('created', 'actionable', 'done', 'canceled')
 
 class Task(ndb.Model):
   """A basic task."""
-
-  task_id = ndb.IntegerProperty()
   title = ndb.StringProperty(indexed=False)
   description = ndb.StringProperty(indexed=False)
 
   status = ndb.StringProperty(choices=[str(s) for s in TaskStatus])
-  priority = ndb.IntegerProperty(indexed=False,
-    validator=lambda prop, value: value if 1 <= value < 6 else None)
+  priority = ndb.IntegerProperty(
+      indexed=False,
+      validator=lambda prop, value: value if 1 <= value < 6 else None)
 
   created_at = ndb.DateTimeProperty(auto_now_add=True)
   notify_after = ndb.DateTimeProperty()
