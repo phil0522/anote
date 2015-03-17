@@ -11,4 +11,3 @@ def add_tag(tag):
   """Add or update a tag."""
   tag.key = Key(Tag, tag.name)
   tag.put()
-

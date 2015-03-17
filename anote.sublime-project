@@ -2,7 +2,13 @@
   "folders":
   [
   {
-    "path": "."
+    "path": "anote-web"
   }
-  ]
+  ],
+  "settings" : {
+    "python_test_runner": {
+      "test_root": "tests/py",
+      "test_command": "/usr/local/bin/nosetests"
+    }
+  }
 }
