@@ -17,6 +17,7 @@ class TaskNote(ndb.Model):
   text = ndb.TextProperty(indexed=False)
 
 
+
 TaskStatus = Enum('created', 'actionable', 'done', 'canceled')
 
 class Task(ndb.Model):
