@@ -5,7 +5,7 @@ from google.appengine.ext import testbed
 from google.appengine.datastore import datastore_stub_util
 
 from anoteweb.model import Task
-from anoteweb.data.task_dao import get_all_actionable_tasks
+from anoteweb.data.task_dao import GetAllActionableTasks
 
 
 class TaskDaoTest(unittest.TestCase):
@@ -31,10 +31,10 @@ class TaskDaoTest(unittest.TestCase):
 
   def  testGetAllActionableTask(self):
     """Only picks actionable tasks."""
-    Task(task_id=1, status='created', title='a').put()
-    Task(task_id=2, status='actionable', title='b').put()
+    key1 = Task(status='created', title='a').put()
+    key2 = Task(status='actionable', title='b').put()
 
-    tasks = get_all_actionable_tasks()
+    tasks = GetAllActionableTasks()
 
     self.assertEqual(1, len(tasks))
     self.assertEqual('b', tasks[0].title)

@@ -13,13 +13,12 @@ class Model2Json(unittest.TestCase):
     model = Task()
     model.status = 'actionable'
     model.title = 'title'
-    model.position = 300
     model.created_at = datetime.utcfromtimestamp(1390576468)
 
     json_string = mjson.model2json(model)
     self.assertIsNotNone(json_string, 'message is none')
     self.assertEquals(
-        '{"created_at": 1390576468, "status": "actionable", "position": 300, ' +
+        '{"created_at": 1390576468, "status": "actionable", ' +
         '"title": "title"}', json_string)
 
     parsed_model = mjson.json2model(Task, json_string)
@@ -39,7 +38,7 @@ class Model2Json(unittest.TestCase):
     self.assertIsNotNone(json_string)
     self.assertEqual('{"status": "actionable", ' +
                      '"tags": ["path.context1", "path.context2"], ' +
-                     '"depth": 0, "title": "title"}', json_string)
+                     '"title": "title"}', json_string)
 
     parsed_model = mjson.json2model(Task, json_string)
 
