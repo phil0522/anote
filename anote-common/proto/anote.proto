@@ -24,7 +24,6 @@ message Task {
 
   // A number to help sort the tasks, smaller ones go first.
   optional int32 position = 13;
-
 }
 
 // A note can't be edit after created, but you can removed it and create a new

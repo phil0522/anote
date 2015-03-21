@@ -16,8 +16,6 @@ class TaskNote(ndb.Model):
   updated_at = ndb.DateTimeProperty(auto_now=True)
   text = ndb.TextProperty(indexed=False)
 
-
-
 TaskStatus = Enum('created', 'actionable', 'done', 'canceled')
 
 class Task(ndb.Model):
@@ -34,6 +32,8 @@ class Task(ndb.Model):
   notify_after = ndb.DateTimeProperty()
   valid_after = ndb.DateTimeProperty()
   due_to = ndb.DateTimeProperty()
+  proejct = ndb.KeyProperty()
+  tags = ndb.StringProperty(repeated=True)
 
   notes = ndb.LocalStructuredProperty(TaskNote, repeated=True, indexed=False)
 

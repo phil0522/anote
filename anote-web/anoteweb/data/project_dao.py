@@ -3,12 +3,20 @@ from google.appengine.ext.ndb.key import Key
 from anoteweb.model import Project
 
 
-def get_all_projects():
+def GetAllProjects():
   """Returns all projects."""
   return Project.query().filter()
 
-def add_project(project):
+def Add(project):
   """ Create or update a project. """
   project.key = Key(Project, project.name)
   project.put()
+
+def Get(project_key):
+  """Get an existing project."""
+  return Project.get_by_id(project_key)
+
+def Remove(project_key):
+  """Remove an existing project. """
+  Key(urlsafe=project_key).delete()
 

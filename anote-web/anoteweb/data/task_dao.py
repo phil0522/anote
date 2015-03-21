@@ -1,23 +1,22 @@
 """Manipulator for task class."""
 import logging
 
-from anoteweb.model import Task
+from anoteweb.model import Task, TaskStatus
 
-def save_task(task):
+def Save(task):
   """Create or update a task."""
   key = task.put()
   logging.info("Saving task: %s", task)
   return key
 
-def get_task(task_id):
+def Get(task_id):
   """Gets a task by its id. None is return when not found."""
   return Task.query(task_id=task_id).get()
 
-def get_all_actionable_tasks():
+def GetAllActionableTask():
   """Gets all task whose status is actionable."""
-  return Task.query().filter(Task.status == 'actionable').fetch(1000)
+  return Task.query().filter(Task.status == TaskStatus).fetch(1000)
 
-
-
-
+def GetAllTaskOfProject(project_key):
+  return Task.query().filter(Task.project == project_key)
 
