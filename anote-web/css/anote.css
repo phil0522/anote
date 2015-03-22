@@ -1,3 +1,33 @@
+.nav-light-background {
+  background: #ebebeb;
+  color: #212121;
+}
+
+body {
+  padding-top: 100px;
+}
+
+.sidebar-module {
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin: 0 -15px 15px;
+}
+
+sidebar {
+  position: fixed;
+  top: 51px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+  border-right: 1px solid #eee;
+}
+
 
 .red {
   background-color: red;

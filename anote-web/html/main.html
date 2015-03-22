@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Anote system</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <!-- Anote theme -->
+    <link rel="stylesheet" href="/css/anote.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script src="/js/TaskCtrl.js"></script>
+  </head>
+
+  <body role="document" ng-app="phonecatApp">
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Aaron Notes</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="main.html">Main Activity</a></li>
+            <li><a href="a.html">More</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container-fluid"> <div class="row" ng-controller="TaskCtrl">
+      <!-- left panel, consists project lists and tag lists. -->
+      <div class="col-sm-3 col-md-2 col-sm-offset-1 sidebar">
+        <div class="sidebar-module">Project
+<p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        </div>
+        <div class="sidebar-module">Tag
+<p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        </div>
+      </div>
+
+      <!-- Task lists. -->
+      <div class="col-sm-1 col-md-1"> </div>
+      <div class="col-sm-6 col-md-5">
+          Test2 {{phones}}
+          <br><br>Test3<br>test4<br>
+
+          <ul ng-repeat="task in tasks">
+            <li> {{task.taskText}} status: {{task.done}} {{task}}</li>
+          </ul>
+      </div>
+    </div></div>
+  </body>
+</html>
