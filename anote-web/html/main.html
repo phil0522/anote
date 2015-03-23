@@ -20,7 +20,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="/js/angular.min.js"></script>
     <script src="/js/ui-bootstrap-tpls-0.12.1.js"></script>
-    <script src="/js/TaskCtrl.js"></script>
+    <script src="/js/task-ctrl.js"></script>
   </head>
 
   <body role="document" ng-app="phonecatApp">
@@ -51,12 +51,28 @@
 
     <div class="container-fluid"> <div class="row" ng-controller="TaskCtrl">
       <!-- left panel, consists project lists and tag lists. -->
-      <div class="col-sm-3 col-md-2 col-sm-offset-1 sidebar">
-        <div class="sidebar-module">Project
-<p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+      <div class="col-sm-4 col-md-3 col-sm-offset-1 sidebar">
+        <div class="sidebar-module">Project<br>
+          <ul ng-repeat="project in projects">
+            <li> {{project}} </li>
+          </ul>
         </div>
-        <div class="sidebar-module">Tag
-<p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        <div class="sidebar-module">Tag <br>
+          <form class="input-append">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="new tag" ng-model="newTag">
+              <span class="input-group-btn">
+                <button type="submit" class="btn-default btn" ng-click="addTag(newTag)"> Add</button>
+              </span>
+            </div>
+            your input: {{newTag}} {{tag_success}}
+          </form>
+          <ul class="list-group" ng-repeat="tag in tags">
+            <li class="list-group-item" ng-class="" ng-mouseenter="hover = list-group-item-info"
+              ng-mouseleave="hover = ''"> {{tag.tag_name}}
+              <span class="pull-right" ng-click="removeTag(tag.tag_name)">&#x2715; </span>
+            </li>
+          </ul>
         </div>
       </div>
 

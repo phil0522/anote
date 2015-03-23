@@ -4,6 +4,7 @@ import webapp2
 import sys
 
 from anoteweb.servlets.action import Demo
+from anoteweb.servlets.tasks import TagsServlet
 
 class MainPage(webapp2.RequestHandler):
   """Handler for MainPage."""
@@ -19,7 +20,7 @@ class MainPage(webapp2.RequestHandler):
 
 application = webapp2.WSGIApplication(
                                       [('/', MainPage),
-                                       ('/a', Demo)], debug=True)
+                                       ('/apiv1/tags*', TagsServlet)], debug=True)
 
 
 

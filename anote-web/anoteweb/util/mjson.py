@@ -56,7 +56,7 @@ def _remove_null_value_from_map(value):
     return [_remove_null_value_from_map(i) for i in value]
   elif isinstance(value, datetime):
     return to_epoch(value)
-  elif isinstance(value, str) or isinstance(value, int):
+  elif isinstance(value, str) or isinstance(value, int) or isinstance(value, unicode):
     return value
   elif isinstance(value, dict):
     result = {}
@@ -70,7 +70,7 @@ def _remove_null_value_from_map(value):
 
     return result
   else:
-    logging.fatal('unknown type: %s %s', type(v), repr(v))
+    logging.fatal('unknown type: %s %s', type(value), repr(value))
 
 
 def json2model(model_class, json_str):
@@ -78,7 +78,13 @@ def json2model(model_class, json_str):
 
 
 def model2json(model):
-  non_empty_map = _remove_null_value_from_map(model.to_dict())
+  if isinstance(model, list):
+    logging.info('model is list %s', model)
+    non_empty_map = [_remove_null_value_from_map(m.to_dict()) for m in model]
+    return json.dumps(non_empty_map, ensure_ascii=False, sort_keys=True)
+  else:
+    non_empty_map = _remove_null_value_from_map(model.to_dict())
+    # Keep it sorted to make test easilier.
+    return json.dumps(non_empty_map, ensure_ascii=False, sort_keys=True)
 
-  # Keep it sorted to make test easilier.
-  return json.dumps(non_empty_map, ensure_ascii=False, sort_keys=True)
+

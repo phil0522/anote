@@ -1,3 +1,2 @@
-# Converts between model and protos
-
+# Converts between model and proto
 

@@ -1,5 +1,4 @@
 """ Dao functions for tags. """
-from google.appengine.ext.ndb.key import Key
 from anoteweb.model import Tag
 
 def get_all_tags():
@@ -9,5 +8,6 @@ def get_all_tags():
 
 def add_tag(tag):
   """Add or update a tag."""
-  tag.key = Key(Tag, tag.name)
-  tag.put()
+  model = Tag()
+  model.tag_name = tag
+  model.put()
