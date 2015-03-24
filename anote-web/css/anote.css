@@ -74,6 +74,18 @@ sidebar {
   background-color: blue;
 }
 
+.priority.high {
+  border: 2px solid;
+  border-color: #4285f4;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+.priority.low {
+  padding: 2px;
+}
+
 .add-field {
   padding-right: 20px;
 }
