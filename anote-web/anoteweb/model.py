@@ -5,8 +5,7 @@ from enum import Enum
 class Project(ndb.Model):
 
   """Projects associated with a task. Project can not be nested."""
-  name = ndb.StringProperty(required=True)
-  description = ndb.StringProperty()
+  project_name = ndb.StringProperty(required=True)
 
 
 class TaskNote(ndb.Model):

@@ -1,11 +1,12 @@
 import webapp2
 import logging
 
-from anoteweb.model import Tag
+from anoteweb.model import Tag, Project
 from anoteweb.data import tag_dao
+from anoteweb.data import project_dao
 from anoteweb.util import mjson
 
-class TagsServlet(webapp2.RequestHandler):
+class TagServlet(webapp2.RequestHandler):
   def get(self):
     all_tags = tag_dao.get_all_tags()
     self.response.write(mjson.model2json(all_tags))
@@ -14,8 +15,30 @@ class TagsServlet(webapp2.RequestHandler):
     tag = self.request.body
     m = mjson.json2model(Tag, tag)
     logging.info("get tag: %s", m.to_dict())
-    tag_dao.add_tag(m.tag_name)
+    saved = tag_dao.add_tag(m.tag_name)
+    self.response.write(mjson.model2json(saved))
 
+  def delete(self):
+    keystr = self.request.get("key", "")
+    if keystr:
+      tag_dao.remove_tag(keystr)
+
+class ProjectServlet(webapp2.RequestHandler):
+  def get(self):
+    all_projects = project_dao.get_all()
+    self.response.write(mjson.model2json(all_projects))
+
+  def post(self):
+    project = self.request.body
+    m = mjson.json2model(Project, project)
+    logging.info("get project: %s", m.to_dict())
+    saved = project_dao.add(m.project_name)
+    self.response.write(mjson.model2json(saved))
+
+  def delete(self):
+    keystr = self.request.get("key", "")
+    if keystr:
+      project_dao.remove(keystr)
 
 
 class GetTasksServlet(webapp2.RequestHandler):

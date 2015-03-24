@@ -1,33 +1,69 @@
 var phonecatApp = angular.module('phonecatApp', [])
 
+var TAG_API_URL = '/apiv1/tag';
+var PROJECT_API_URL = '/apiv1/project';
 
 phonecatApp.controller('TaskCtrl', ['$scope', '$http', '$timeout',
   function($scope, $http, $timeout) {
     $scope.refresh_func = function() {
-      $http.get('/apiv1/tags').success(function(data) {
+      $http.get(TAG_API_URL).success(function(data) {
         $timeout(function() {
           $scope.tags = data;
         });
       });
-    };
 
-    $scope.tasks = [
-      {taskText:'learn angular', done:true},
-      {taskText:'build an angular app', done:false}];
-    $scope.phones = "Hello";
+      $http.get(PROJECT_API_URL).success(function(data) {
+        $timeout(function() {
+          $scope.projects = data;
+        });
+      });
+    };
 
     $scope.addTag = function(newTag) {
       tagModel = {}
       tagModel.tag_name = newTag;
-      $http.post('/apiv1/tags', angular.toJson(tagModel)).success(function(data) {
+      $http.post(TAG_API_URL, angular.toJson(tagModel)).success(function(data) {
         $scope.tag_success = 'success';
+        $scope.tags.push(data);
       });
+      $scope.newTag = "";
     };
 
     $scope.removeTag = function(tagKey) {
-      $http.delete('/apiv1/tags')
-    }
-    $scope.tag_success = "none";
+      $http.delete(TAG_API_URL, {params: {'key': tagKey}}).success(function(data) {
+        $timeout(function() {
+          for (i=0; i<$scope.tags.length; i++) {
+            if ($scope.tags[i].key === tagKey) {
+              $scope.tags.splice(i, 1);
+              break;
+            }
+          }
+        });
+      });
+    };
+
+    $scope.addProject = function(newProject) {
+      projectModel = {}
+      projectModel.project_name =  newProject;
+      $http.post(PROJECT_API_URL, angular.toJson(projectModel)).success(function(data) {
+        $scope.projects.push(data);
+      });
+
+      $scope.newProject = "";
+    };
+
+    $scope.removeProject = function(projectKey) {
+      $http.delete(PROJECT_API_URL, {params: {'key': projectKey}}).success(function(data) {
+        $timeout(function() {
+          for (i=0; i<$scope.projects.length; i++) {
+            if ($scope.projects[i].key === projectKey) {
+              $scope.projects.splice(i, 1);
+              break;
+            }
+          }
+        });
+      });
+    };
 
     (function() {
       $scope.refresh_func();

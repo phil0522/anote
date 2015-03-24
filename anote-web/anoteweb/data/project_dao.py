@@ -1,22 +1,21 @@
 """ Dao object for project. """
-from google.appengine.ext.ndb.key import Key
+from google.appengine.ext import ndb
 from anoteweb.model import Project
 
 
-def GetAllProjects():
-  """Returns all projects."""
-  return Project.query().filter()
+def get_all():
+  """Gets all tags."""
+  tags = Project.query().fetch(10000)
+  return tags
 
-def Add(project):
-  """ Create or update a project. """
-  project.key = Key(Project, project.name)
-  project.put()
+def add(project_name):
+  """Add a project_name."""
+  model = Project()
+  model.project_name = project_name
+  model.put()
+  return model
 
-def Get(project_key):
-  """Get an existing project."""
-  return Project.get_by_id(project_key)
-
-def Remove(project_key):
-  """Remove an existing project. """
-  Key(urlsafe=project_key).delete()
+def remove(keystr):
+  key = ndb.Key(urlsafe=keystr)
+  key.delete()
 

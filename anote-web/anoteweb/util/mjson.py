@@ -52,6 +52,10 @@ def _get_value_for_json_to_model(prop, v):
 
 
 def _remove_null_value_from_map(value):
+  if isinstance(value, ndb.Model):
+    kv_map = value.to_dict()
+    kv_map['key'] = value.key.urlsafe()
+    return _remove_null_value_from_map(kv_map)
   if isinstance(value, list):
     return [_remove_null_value_from_map(i) for i in value]
   elif isinstance(value, datetime):
@@ -76,14 +80,13 @@ def _remove_null_value_from_map(value):
 def json2model(model_class, json_str):
   return _json_to_model(model_class, json.loads(json_str))
 
-
 def model2json(model):
   if isinstance(model, list):
     logging.info('model is list %s', model)
-    non_empty_map = [_remove_null_value_from_map(m.to_dict()) for m in model]
+    non_empty_map = [_remove_null_value_from_map(m) for m in model]
     return json.dumps(non_empty_map, ensure_ascii=False, sort_keys=True)
   else:
-    non_empty_map = _remove_null_value_from_map(model.to_dict())
+    non_empty_map = _remove_null_value_from_map(model)
     # Keep it sorted to make test easilier.
     return json.dumps(non_empty_map, ensure_ascii=False, sort_keys=True)
 

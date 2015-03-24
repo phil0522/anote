@@ -52,11 +52,6 @@
     <div class="container-fluid"> <div class="row" ng-controller="TaskCtrl">
       <!-- left panel, consists project lists and tag lists. -->
       <div class="col-sm-4 col-md-3 col-sm-offset-1 sidebar">
-        <div class="sidebar-module">Project<br>
-          <ul ng-repeat="project in projects">
-            <li> {{project}} </li>
-          </ul>
-        </div>
         <div class="sidebar-module">Tag <br>
           <form class="input-append">
             <div class="input-group">
@@ -65,11 +60,25 @@
                 <button type="submit" class="btn-default btn" ng-click="addTag(newTag)"> Add</button>
               </span>
             </div>
-            your input: {{newTag}} {{tag_success}}
           </form>
-          <ul class="list-group tag-cloud">
+          <ul class="list-group tag-cloud" ng-show="tags.length > 0">
             <li class="tag-cloud tag-cloud-info" ng-repeat="tag in tags">
-              {{tag.tag_name}} <span class="blue" ng-click="removeTag(tag.tag_name)">&#x2715; </span>
+              {{tag.tag_name}} <span ng-click="removeTag(tag.key)">&#x2715; </span>
+            </li>
+          </ul>
+        </div>
+        <div class="sidebar-module">Project <br>
+          <form class="input-append">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="new project" ng-model="newProject">
+              <span class="input-group-btn">
+                <button type="submit" class="btn-default btn" ng-click="addProject(newProject)"> Add</button>
+              </span>
+            </div>
+          </form>
+          <ul class="list-group tag-cloud" ng-show="projects.length > 0">
+            <li class="tag-cloud tag-cloud-info" ng-repeat="project in projects">
+              {{project.project_name}} <span ng-click="removeProject(project.key)">&#x2715; </span>
             </li>
           </ul>
         </div>
