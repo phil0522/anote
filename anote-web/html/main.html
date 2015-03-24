@@ -67,10 +67,9 @@
             </div>
             your input: {{newTag}} {{tag_success}}
           </form>
-          <ul class="list-group" ng-repeat="tag in tags">
-            <li class="list-group-item" ng-class="" ng-mouseenter="hover = list-group-item-info"
-              ng-mouseleave="hover = ''"> {{tag.tag_name}}
-              <span class="pull-right" ng-click="removeTag(tag.tag_name)">&#x2715; </span>
+          <ul class="list-group tag-cloud">
+            <li class="tag-cloud tag-cloud-info" ng-repeat="tag in tags">
+              {{tag.tag_name}} <span class="blue" ng-click="removeTag(tag.tag_name)">&#x2715; </span>
             </li>
           </ul>
         </div>

@@ -21,9 +21,12 @@ phonecatApp.controller('TaskCtrl', ['$scope', '$http', '$timeout',
       tagModel.tag_name = newTag;
       $http.post('/apiv1/tags', angular.toJson(tagModel)).success(function(data) {
         $scope.tag_success = 'success';
-        $scope.refresh_func();
       });
     };
+
+    $scope.removeTag = function(tagKey) {
+      $http.delete('/apiv1/tags')
+    }
     $scope.tag_success = "none";
 
     (function() {
