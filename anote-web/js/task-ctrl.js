@@ -65,6 +65,16 @@ phonecatApp.controller('TaskCtrl', ['$scope', '$http', '$timeout',
       });
     };
 
+    // table related.
+    $scope.columns_meta = [
+      {"col_name": "priority", "display_name": "P", "attr_name": "priority"},
+      {"col_name": "title", "display_name": "TITLE", "attr_name": "title"},
+      {"col_name": "status", "display_name": "STATUS", "attr_name": "status"},
+      {"col_name": "last_modification", "display_name": "LAST MODIFIED", "attr_name": "last_modification"}
+    ];
+    $scope.colSortDirection = "array-up";
+    $scope.sortedCol = "priority";
+
     (function() {
       $scope.refresh_func();
     })();

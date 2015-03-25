@@ -63,6 +63,27 @@ sidebar {
 }
 
 
+.arrow-up {
+  width: 0;
+  height: 0;
+  position: relative
+  left: 0;
+  top: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+  display: inline-block;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+  display: inline-block;
+}
+
 .grey {
   background-color: #808080;
 }
@@ -76,7 +97,7 @@ sidebar {
 
 .priority.high {
   border: 2px solid;
-  border-color: #4285f4;
+  border-color: #4185f0;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -84,6 +105,44 @@ sidebar {
 
 .priority.low {
   padding: 2px;
+}
+
+.inner-content {
+  bottom: 0;
+  left: 220px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.borderless-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+  width: 100%;
+}
+
+.focus-indicator {
+  padding: 0 0 0 2px;
+}
+
+table {
+  layout: auto;
+  border-collapse: collapse;
+  border-spacing: 4px;
+}
+
+tr.row-focused .focus-indicator {
+  background-color: #4d91f1;
+}
+
+.table-column {
+  border-bottom: 1px solid #ebebeb;
+  border-top: 1px solid transparent;
+  height: 35px;
+  overflow: hidden;
+  padding: 0 8px;
+  white-space: nowrap;
 }
 
 .add-field {
@@ -105,6 +164,7 @@ sidebar {
 .add-extra {
   margin-bottom: 0px;
 }
+
 
 .col_check {
   width: 15px;
