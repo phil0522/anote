@@ -126,6 +126,30 @@ sidebar {
   padding: 0 0 0 2px;
 }
 
+.full-size-input {
+  width: 100%;
+}
+
+.float-clear {
+  clear: both;
+  margin: 10px 0 10px 0;
+}
+
+.new-issue-padding {
+  padding-bottom: 15px;
+}
+
+.task-note {
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 200px;
+}
+
+.back_link {
+  padding-left: 15px;
+  padding-bottom: 20px;
+}
+
 table {
   layout: auto;
   border-collapse: collapse;

@@ -84,31 +84,14 @@
         </div>
       </div>
 
+      <datalist id="priorities">
+        <option value="P1"/>
+        <option value="P2"/>
+        <option value="P3"/>
+      </datalist>
       <!-- Task lists. -->
-      <div class="col-sm-1 col-md-1"> </div>
-      <div class="col-sm-7 col-md-6">
-          <div class="table-content-div">
-            <table class="borderless-table">
-              <thead>
-                <tr class="table-header-row">
-                  <th class="focus-indicator"></th>
-                  <th class="check-box table-column" >
-                    <input type="checkbox" ng-click="ctrl.toggleAllIssueSelection()">
-                  </th>
-                  <th class="col-stared table-column"></th>
+      <div ng-view class="col-sm-7"></div>
 
-                  <th ng-repeat="col in columns_meta" class="table-column" >
-                    {{col.display_name}} <span ng-class="column_sorted_class" ng-hide="col.display_name == column_sorted_currrent"></span>
-                  </th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-
-          <ul ng-repeat="task in tasks">
-            <li> {{task.taskText}} status: {{task.done}} {{task}}</li>
-          </ul>
-      </div>
     </div></div>
   </body>
 </html>

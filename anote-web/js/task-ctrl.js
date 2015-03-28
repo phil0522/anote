@@ -2,6 +2,42 @@ var phonecatApp = angular.module('phonecatApp', [])
 
 var TAG_API_URL = '/apiv1/tag';
 var PROJECT_API_URL = '/apiv1/project';
+var TASK_API_URL = '/apiv1/task';
+
+phonecatApp.directive('autoComplete', function($timeout) {
+    return function(scope, iElement, iAttrs) {
+            iElement.autocomplete({
+                source: scope[iAttrs.uiItems],
+                select: function() {
+                    $timeout(function() {
+                      iElement.trigger('input');
+                    }, 0);
+                }
+            });
+    };
+});
+
+
+phonecatApp.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/', {
+        templateUrl: 'html/task-list.html',
+        controller: 'TaskCtrl',
+      }).
+      when('/new', {
+        templateUrl: 'html/task-new.html',
+        controller: 'NewTaskCtrl',
+      }).
+      when('/:taskId:', {
+        templateUrl: 'html/task-detail.html',
+        controller: 'TaskDetailCtrl'
+      }).
+      otherwise({
+        redirectTo: '/'
+      });
+  }]);
+
 
 phonecatApp.controller('TaskCtrl', ['$scope', '$http', '$timeout',
   function($scope, $http, $timeout) {
@@ -72,8 +108,8 @@ phonecatApp.controller('TaskCtrl', ['$scope', '$http', '$timeout',
       {"col_name": "status", "display_name": "STATUS", "attr_name": "status"},
       {"col_name": "last_modification", "display_name": "LAST MODIFIED", "attr_name": "last_modification"}
     ];
-    $scope.colSortDirection = "array-up";
-    $scope.sortedCol = "priority";
+    $scope.column_sorted_class = "array-up";
+    $scope.column_sorted_currrent = "priority";
 
     (function() {
       $scope.refresh_func();
@@ -82,6 +118,30 @@ phonecatApp.controller('TaskCtrl', ['$scope', '$http', '$timeout',
 }]);
 
 
+
+phonecatApp.controller('NewTaskCtrl', ['$scope', '$http', '$timeout',
+  function($scope, $http, $timeout) {
+    $scope.addTask = function(newTask) {
+      taskModel = {};
+      taskModel.title = newTask.title;
+
+      note = {};
+      note.text = newTask.note;
+      taskModel.notes = []
+      taskModel.notes.push(note);
+
+      taskModel.project = newTask.project;
+      taskModel.priority = newTask.priority;
+      taskModel.status = 'new';
+
+      $http.put(TASK_API_URL, angular.toJson(taskModel)).success(function(data) {
+        $scope.projects.push(data);
+      });
+
+      $scope.newProject = "";
+    };
+
+  }]);
 function TaskCtrl2($scope) {
 
 

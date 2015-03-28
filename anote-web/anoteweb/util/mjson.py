@@ -11,11 +11,16 @@ from datetime import datetime
 def _json_to_model(model_class, json_obj):
   """json to model string."""
   _result = {}
+  url_safe_key = None
   for k, value in json_obj.iteritems():
+    if k == 'key':
+      url_safe_key = value
+      continue
     prop = model_class._properties.get(k)
     if prop is None:
+      print dir(model_class)
       logging.fatal('can not decode %s, Property is not defined on %s.%s.', k,
-                    model_class.__model__, model_class.__name__)
+                    model_class.__module__, model_class.__name__)
     if isinstance(prop, ndb.model.ComputedProperty):
       continue
     if prop._repeated:
@@ -26,7 +31,10 @@ def _json_to_model(model_class, json_obj):
     _result[k] = value
 
   print 'result=', repr(_result)
-  return model_class(**_result)
+  m = model_class(**_result)
+  if url_safe_key:
+    m.key = ndb.Key(urlsafe=url_safe_key)
+  return m
 
 
 def _get_value_for_json_to_model(prop, v):
@@ -60,11 +68,13 @@ def _remove_null_value_from_map(value):
     return [_remove_null_value_from_map(i) for i in value]
   elif isinstance(value, datetime):
     return to_epoch(value)
-  elif isinstance(value, str) or isinstance(value, int) or isinstance(value, unicode):
+  elif isinstance(value, str) or isinstance(value, int) or isinstance(
+    value, unicode):
     return value
   elif isinstance(value, dict):
     result = {}
     for k, v in value.iteritems():
+      logging.info('current key: %s', k)
       if isinstance(v, (list, dict)) and not v:
         continue
       if v is None:

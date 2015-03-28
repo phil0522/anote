@@ -1,17 +1,18 @@
 """Manipulator for task class."""
 import logging
 
+from google.appengine.ext import ndb
 from anoteweb.model import Task, TaskStatus
 
 def Save(task):
   """Create or update a task."""
   key = task.put()
   logging.info("Saving task: %s", task)
-  return key
+  return key.urlsafe()
 
 def Get(task_key):
   """Gets a task by its id. None is return when not found."""
-  return Task.query(key=task_key).get()
+  return ndb.Key(urlsafe=task_key).get()
 
 def GetAllActionableTasks():
   """Gets all task whose status is actionable."""

@@ -1,9 +1,10 @@
 import webapp2
 import logging
 
-from anoteweb.model import Tag, Project
+from anoteweb.model import Tag, Project, Task
 from anoteweb.data import tag_dao
 from anoteweb.data import project_dao
+from anoteweb.data import task_dao
 from anoteweb.util import mjson
 
 class TagServlet(webapp2.RequestHandler):
@@ -41,10 +42,36 @@ class ProjectServlet(webapp2.RequestHandler):
       project_dao.remove(keystr)
 
 
-class GetTasksServlet(webapp2.RequestHandler):
+class TaskServlet(webapp2.RequestHandler):
   """Send out taks in json format."""
   def get(self):
-    self.response.headers['Content-Type'] = 'text/plain'
-    self.response.write('Hello, World!')
-    data = anote_pb2.Task()
-    self.response.write(data)
+    all_tasks = task_dao.GetAllActionableTasks()
+    self.response.write(mjson.model2json(all_tasks))
+
+  def post(self):
+    """Update task status and append notes."""
+    task = self.request.body
+    m = mjson.json2model(Task, task)
+
+    logging.info("get task update: %s", m.to_dict())
+
+    # Get stored one from db
+    saved = m.key.get()
+
+    saved.priority = m.priority
+    saved.title = m.title
+    saved.status = m.status
+    saved.project = m.project
+    saved.tags = m.tags
+
+    if saved.notes[-1].text != m.notes[0].text:
+      saved.notes.append(m.notes[0])
+    saved.put()
+
+  def put(self):
+    """Creates a new task."""
+    task = self.request.body
+    m = mjson.json2model(Task, task)
+    saved_key = task_dao.Save(m)
+
+    self.response.write(saved_key)
