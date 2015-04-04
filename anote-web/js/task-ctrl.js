@@ -29,7 +29,7 @@ phonecatApp.config(['$routeProvider',
         templateUrl: 'html/task-new.html',
         controller: 'NewTaskCtrl',
       }).
-      when('/:taskId:', {
+      when('/task/:id', {
         templateUrl: 'html/task-detail.html',
         controller: 'TaskDetailCtrl'
       }).
@@ -117,8 +117,6 @@ phonecatApp.controller('TaskCtrl', ['$scope', '$http', '$timeout',
 
 }]);
 
-
-
 phonecatApp.controller('NewTaskCtrl', ['$scope', '$http', '$timeout',
   function($scope, $http, $timeout) {
     $scope.addTask = function(newTask) {
@@ -142,6 +140,38 @@ phonecatApp.controller('NewTaskCtrl', ['$scope', '$http', '$timeout',
     };
 
   }]);
+
+phonecatApp.controller('TaskDetailCtrl', ['$scope', '$http', '$route',
+  function($scope, $http, $route) {
+
+    $scope.refresh_func = function() {
+      url = TASK_API_URL + "?taskId=" + $route.current.params['id'];
+      $http.get(url).success(function(data) {
+        $timeout(function() {
+          $scope.task = data;
+        });
+      });
+
+    };
+    $scope.title = "abc";
+      $scope.task = {
+        'title': 'Title Text',
+        'notes': [{
+          'text': 'note text1',
+          'createAt': 1000,
+          'commentNumber': 1
+        }, {
+          'text': 'note text2',
+          'createAt': 1001,
+          'commentNumber': 2
+        }]
+      };
+
+    (function() {
+      $scope.refresh_func();
+    })();
+  }]);
+
 function TaskCtrl2($scope) {
 
 

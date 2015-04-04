@@ -150,6 +150,11 @@ sidebar {
   padding-bottom: 20px;
 }
 
+li.note-list-item {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #1b1bff;
+}
+
 table {
   layout: auto;
   border-collapse: collapse;
@@ -167,6 +172,28 @@ tr.row-focused .focus-indicator {
   overflow: hidden;
   padding: 0 8px;
   white-space: nowrap;
+}
+
+ul.task-history {
+    list-style: none;
+
+}
+
+.toolbar {
+    border-bottom-color: grey;
+    border-bottom: solid 1px;
+    margin-bottom: 30px;
+}
+
+.note-content {
+    line-height: 18px;
+    margin-top: 15px;
+    word-wrap: break-word;
+}
+
+.note-create-at {
+    float: right;
+    color: blue;
 }
 
 .add-field {
