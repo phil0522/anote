@@ -2,25 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Anote system</title>
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
-    <!-- Anote theme -->
-    <link rel="stylesheet" href="/css/anote.css">
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="/js/angular.min.js"></script>
-    <script src="/js/ui-bootstrap-tpls-0.12.1.js"></script>
-    <script src="/js/task-ctrl.js"></script>
   </head>
 
   <body role="document" ng-app="phonecatApp">
@@ -52,36 +34,8 @@
     <div class="container-fluid" ng-controller="TaskCtrl"> <div class="row" >
       <!-- left panel, consists project lists and tag lists. -->
       <div class="col-sm-3 col-md-2 col-sm-offset-1 sidebar">
-        <div class="sidebar-module">Tag <br>
-          <form class="input-append">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="new tag" ng-model="newTag">
-              <span class="input-group-btn">
-                <button type="submit" class="btn-default btn" ng-click="addTag(newTag)"> Add</button>
-              </span>
-            </div>
-          </form>
-          <ul class="list-group tag-cloud" ng-show="tags.length > 0">
-            <li class="tag-cloud tag-cloud-info" ng-repeat="tag in tags">
-              {{tag.tag_name}} <span ng-click="removeTag(tag.key)">&#x2715; </span>
-            </li>
-          </ul>
-        </div>
-        <div class="sidebar-module">Project <br>
-          <form class="input-append">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="new project" ng-model="newProject">
-              <span class="input-group-btn">
-                <button type="submit" class="btn-default btn" ng-click="addProject(newProject)"> Add</button>
-              </span>
-            </div>
-          </form>
-          <ul class="list-group tag-cloud" ng-show="projects.length > 0">
-            <li class="tag-cloud tag-cloud-info" ng-repeat="project in projects">
-              {{project.project_name}} <span ng-click="removeProject(project.key)">&#x2715; </span>
-            </li>
-          </ul>
-        </div>
+
+
       </div>
 
       <datalist id="priorities">

@@ -1,0 +1,54 @@
+<html >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <script src="http://code.angularjs.org/1.2.9/angular.js"></script>
+
+    <title>Anote system</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <!-- Anote theme -->
+    <link rel="stylesheet" href="/css/anote.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/js/ui-bootstrap-tpls-0.12.1.js"></script>
+    <script src="/js/task-ctrl.js"></script>
+</head>
+
+<body ng-app="anoteApp" >
+<div data-ng-controller="MainCtrl as fff">
+ Current Mode = <input data-ng-model="fff.viewMode"/> abc
+</div>
+
+<div ng-controller="TaskCtrl" class="col-sm-7 col-md-6">
+    <div class="table-content-div">
+      <table class="borderless-table">
+        <thead>
+          <tr class="table-header-row">
+            <th class="focus-indicator"></th>
+            <th class="check-box table-column" >
+              <input type="checkbox" ng-click="ctrl.toggleAllIssueSelection()">
+            </th>
+            <th class="col-stared table-column"></th>
+
+            <th ng-repeat="col in columns_meta" class="table-column" >
+              {{col.display_name}} <span ng-class="column_sorted_class" ng-hide="col.display_name == column_sorted_currrent"></span>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <ul ng-repeat="task in tasks">
+      <li> {{task.taskText}} status: {{task.done}} {{task}}</li>
+    </ul>
+</div>
+
+</body>

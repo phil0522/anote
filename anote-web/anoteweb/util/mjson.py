@@ -63,6 +63,7 @@ def _remove_null_value_from_map(value):
   if isinstance(value, ndb.Model):
     kv_map = value.to_dict()
     kv_map['key'] = value.key.urlsafe()
+    kv_map['key_id'] = value.key.id()
     return _remove_null_value_from_map(kv_map)
   if isinstance(value, list):
     return [_remove_null_value_from_map(i) for i in value]

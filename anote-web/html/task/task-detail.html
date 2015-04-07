@@ -1,0 +1,19 @@
+<div ng-controller="TaskDetailCtrl as task">
+    </div>
+    <div class="float-clear"></div>
+    <div class="task-create-row container new-issue-padding">
+        <div class="col-sm-7"> <b>{{task.title}}</b>
+
+        </div>
+    </div>
+    <div class="float-clear"></div>
+    <div class="task-create-row container new-issue-padding">
+        <ul class="task-history">
+            <li ng-repeat="note in task.notes" class="note-list-item">
+                <div class="note-header"> <span>#{{note.commentNumber}}</span>
+                    <span class="note-create-at">{{note.createAt}}</span></div>
+                <div class="note-content">{{note.text}}</div>
+            </li>
+        </ul>
+    </div>
+</div>

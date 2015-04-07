@@ -45,7 +45,14 @@ class ProjectServlet(webapp2.RequestHandler):
 class TaskServlet(webapp2.RequestHandler):
   """Send out taks in json format."""
   def get(self):
-    all_tasks = task_dao.GetAllActionableTasks()
+    tid = self.request.get('taskId', '')
+    all_tasks = []
+    if tid:
+      task = task_dao.GetById(tid)
+      if task:
+        all_tasks = [task]
+    else:
+      all_tasks = task_dao.GetAllActionableTasks()
     self.response.write(mjson.model2json(all_tasks))
 
   def post(self):

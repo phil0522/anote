@@ -1,10 +1,12 @@
-var phonecatApp = angular.module('phonecatApp', [])
+var anoteApp = angular.module('anoteApp', [])
 
 var TAG_API_URL = '/apiv1/tag';
 var PROJECT_API_URL = '/apiv1/project';
 var TASK_API_URL = '/apiv1/task';
 
-phonecatApp.directive('autoComplete', function($timeout) {
+var URL_PREFIX='/main'
+
+anoteApp.directive('autoComplete', function($timeout) {
     return function(scope, iElement, iAttrs) {
             iElement.autocomplete({
                 source: scope[iAttrs.uiItems],
@@ -17,29 +19,14 @@ phonecatApp.directive('autoComplete', function($timeout) {
     };
 });
 
+anoteApp.controller('MainCtrl', ['$scope', '$location',
+  function ($scope, $location) {
+    // $scope.viewMode = $location.search()['view'];
+    this.viewMode = "ABC";
+  }
+]);
 
-phonecatApp.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/', {
-        templateUrl: 'html/task-list.html',
-        controller: 'TaskCtrl',
-      }).
-      when('/new', {
-        templateUrl: 'html/task-new.html',
-        controller: 'NewTaskCtrl',
-      }).
-      when('/task/:id', {
-        templateUrl: 'html/task-detail.html',
-        controller: 'TaskDetailCtrl'
-      }).
-      otherwise({
-        redirectTo: '/'
-      });
-  }]);
-
-
-phonecatApp.controller('TaskCtrl', ['$scope', '$http', '$timeout',
+anoteApp.controller('TaskCtrl', ['$scope', '$http', '$timeout',
   function($scope, $http, $timeout) {
     $scope.refresh_func = function() {
       $http.get(TAG_API_URL).success(function(data) {
@@ -117,8 +104,8 @@ phonecatApp.controller('TaskCtrl', ['$scope', '$http', '$timeout',
 
 }]);
 
-phonecatApp.controller('NewTaskCtrl', ['$scope', '$http', '$timeout',
-  function($scope, $http, $timeout) {
+anoteApp.controller('NewTaskCtrl', ['$scope', '$http', '$timeout', '$location',
+  function($scope, $http, $timeout, $location) {
     $scope.addTask = function(newTask) {
       taskModel = {};
       taskModel.title = newTask.title;
@@ -133,7 +120,7 @@ phonecatApp.controller('NewTaskCtrl', ['$scope', '$http', '$timeout',
       taskModel.status = 'new';
 
       $http.put(TASK_API_URL, angular.toJson(taskModel)).success(function(data) {
-        $scope.projects.push(data);
+        $location.path('/main');
       });
 
       $scope.newProject = "";
@@ -141,7 +128,7 @@ phonecatApp.controller('NewTaskCtrl', ['$scope', '$http', '$timeout',
 
   }]);
 
-phonecatApp.controller('TaskDetailCtrl', ['$scope', '$http', '$route',
+anoteApp.controller('TaskDetailCtrl', ['$scope', '$http', '$route',
   function($scope, $http, $route) {
 
     $scope.refresh_func = function() {

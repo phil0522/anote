@@ -1,0 +1,15 @@
+       <div class="sidebar-module">Tag <br>
+          <form class="input-append">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="new tag" ng-model="newTag">
+              <span class="input-group-btn">
+                <button type="submit" class="btn-default btn" ng-click="addTag(newTag)"> Add</button>
+              </span>
+            </div>
+          </form>
+          <ul class="list-group tag-cloud" ng-show="tags.length > 0">
+            <li class="tag-cloud tag-cloud-info" ng-repeat="tag in tags">
+              {{tag.tag_name}} <span ng-click="removeTag(tag.key)">&#x2715; </span>
+            </li>
+          </ul>
+        </div>

@@ -14,6 +14,10 @@ def Get(task_key):
   """Gets a task by its id. None is return when not found."""
   return ndb.Key(urlsafe=task_key).get()
 
+def GetById(task_key_id):
+  key = ndb.Key('Task', task_key_id)
+  return key.get()
+
 def GetAllActionableTasks():
   """Gets all task whose status is actionable."""
   return Task.query().filter(Task.status == str(TaskStatus.actionable)).fetch(

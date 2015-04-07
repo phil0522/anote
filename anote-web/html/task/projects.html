@@ -1,0 +1,15 @@
+<div ng-controller="ProjectCtrl as pt" class="sidebar-module">Project <br>
+  <form class="input-append">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="new project" ng-model="pt.newProject">
+      <span class="input-group-btn">
+        <button type="submit" class="btn-default btn" ng-click="pt.addProject(newProject)"> Add</button>
+      </span>
+    </div>
+  </form>
+  <ul class="list-group tag-cloud" ng-show="pt.projects.length > 0">
+    <li class="tag-cloud tag-cloud-info" ng-repeat="project in pt.projects">
+      {{pt.project.project_name}} <span ng-click="pt.removeProject(project.key)">&#x2715; </span>
+    </li>
+  </ul>
+</div>
