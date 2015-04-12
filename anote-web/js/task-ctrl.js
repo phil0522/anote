@@ -23,6 +23,7 @@ anoteApp.controller('MainCtrl', ['$scope', '$location',
   function ($scope, $location) {
     // $scope.viewMode = $location.search()['view'];
     this.viewMode = "ABC";
+    this.contentSource = "/html/task/task-list.html";
   }
 ]);
 

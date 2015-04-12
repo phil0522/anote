@@ -1,4 +1,5 @@
-<html >
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,33 +23,6 @@
     <script src="/js/task-ctrl.js"></script>
 </head>
 
-<body ng-app="anoteApp" >
-<div data-ng-controller="MainCtrl as fff">
- Current Mode = <input data-ng-model="fff.viewMode"/> abc
-</div>
-
-<div ng-controller="TaskCtrl" class="col-sm-7 col-md-6">
-    <div class="table-content-div">
-      <table class="borderless-table">
-        <thead>
-          <tr class="table-header-row">
-            <th class="focus-indicator"></th>
-            <th class="check-box table-column" >
-              <input type="checkbox" ng-click="ctrl.toggleAllIssueSelection()">
-            </th>
-            <th class="col-stared table-column"></th>
-
-            <th ng-repeat="col in columns_meta" class="table-column" >
-              {{col.display_name}} <span ng-class="column_sorted_class" ng-hide="col.display_name == column_sorted_currrent"></span>
-            </th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-
-    <ul ng-repeat="task in tasks">
-      <li> {{task.taskText}} status: {{task.done}} {{task}}</li>
-    </ul>
-</div>
-
+<body ng-app="anoteApp" ng-controller="MainCtrl as main">
+  <ng-include src="main.contentSource"></ng-include>
 </body>
