@@ -7,3 +7,4 @@ anote-web/genfiles
 .idea
 funcpro
 *.sublime-workspace
+*.hprof

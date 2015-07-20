@@ -1,0 +1,58 @@
+## Template for each generated ViewModelWrapper class.
+## This template uses the Apache Velocity Template Language (VTL).
+## The variables ($pkg, $props, and so on) are defined by the fields of ViewModelTemplateVars.
+##
+## Comments, like this one, begin with ##. The comment text extends up to and including the newline
+## character at the end of the line. So comments also serve to join a line to the next one.
+## Velocity deletes a newline after a directive (#if, #foreach, #end etc) so ## is not needed there.
+## That does mean that we sometimes need an extra blank line after such a directive.
+##
+## A post-processing step will remove unwanted spaces and blank lines, but will not join two lines.
+
+#if (!$pkg.empty)
+package $pkg;
+#end
+
+#foreach ($i in $imports)
+import $i;
+#end
+
+public final class $generatedClassName {
+    private final ${name} viewModel;
+
+    public $generatedClassName(${name} viewModel) {
+        this.viewModel = viewModel;
+    }
+
+    #foreach ($method in $fields)
+    public ObservableStringField ${method.name}() {
+        return new ObservableStringField() {
+            @Override
+            public ${method.type} getValue() {
+                return viewModel.${method.name}();
+            }
+        };
+    }
+    #end
+
+    #foreach ($method in $textChanges)
+    public TextWatcher ${method}() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.${method}(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+    }
+    #end
+}
