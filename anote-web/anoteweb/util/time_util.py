@@ -2,7 +2,7 @@
 Utility class for time related feature.
 """
 
-__author__ = 'phonica@gmail.com (phil0522)'
+__author__ = 'phil0522'
 
 from calendar import timegm
 from datetime import datetime
